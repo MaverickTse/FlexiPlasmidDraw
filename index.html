@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Flexi Plasmid Draw Home Page</title>
+<style type="text/css">
+<!--
+body {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	background: #666666;
+	margin: 0; /* 比較好的做法是將 Body 元素的邊界與欄位間隔調整為零，以處理不同的瀏覽器預設值 */
+	padding: 0;
+	text-align: center; /* 這樣會讓容器在 IE 5* 瀏覽器內置中對齊。然後，文字會在 #container 選取器中設定為靠左對齊預設值 */
+	color: #000000;
+}
+.oneColFixCtrHdr #container {
+	width: 780px;  /* 使用比完整 800px 少 20px 的寬度會允許使用瀏覽器邊框並且避免水平捲軸出現 */
+	background: #FFFFFF;
+	margin: 0 auto; /* 自動邊界 (搭配寬度) 會讓頁面置中對齊 */
+	border: 1px solid #000000;
+	text-align: left; /* 這樣做會覆寫 Body 元素上的 text-align: center。 */
+}
+.oneColFixCtrHdr #header {
+	background: #DDDDDD; 
+	padding: 0 10px 0 20px;  /* 這個欄位間隔符合下面顯示的 Div 中，元素的靠左對齊。如果在 #header 中使用影像而非文字，您可能會想要移除欄位間隔。 */
+}
+.oneColFixCtrHdr #header h1 {
+	margin: 0; /* 將 #header Div 中最後一個元素的邊界調整為零可避免邊界收合 (Div 之間出現的空間，無法解釋)。如果 Div 的周圍具有邊框，這就不是必要動作，因為該項設定也會避免邊界收合 */
+	padding: 10px 0; /* 使用欄位間隔而非邊界便可讓元素遠離 Div 的邊緣 */
+}
+.oneColFixCtrHdr #mainContent {
+	padding: 0 20px; /* 請記住，欄位間隔就是 Div 方塊內部的空間，而邊界就是 Div 方塊外部的空間 */
+	background: #FFFFFF;
+}
+.oneColFixCtrHdr #footer {
+	padding: 0 10px; /* 這個欄位間隔符合上面顯示的 Div 中，元素的靠左對齊。 */
+	background:#DDDDDD;
+}
+.oneColFixCtrHdr #footer p {
+	margin: 0; /* 將頁尾中第一個元素的邊界調整為零可避免邊界收合的可能性 (Div 之間出現的空間) */
+	padding: 10px 0; /* 這個元素的欄位間隔將會建立空間，就如同邊界一樣，但是沒有邊界收合的問題 */
+}
+-->
+</style></head>
+
+<body class="oneColFixCtrHdr">
+
+<div id="container">
+  <div id="header">
+<h1>Flexi Plasmid Draw :: draw plasmid freely</h1>
+  <!-- end #header --></div>
+  <div id="mainContent">
+<h1> Purpose </h1>
+    <p>At the time of writing, there are many software packages that allow the generation of plasmid maps. However, these software requires actual DNA sequence to draw the map. In many cases, the actual sequence of the full plasmid is not known or unimportant. The market lacks a program that helps to produce a stylish plasmid map quickly.Freewares currently available from the Internet are either buggy, lacks in feature, requires Internet connection or needs to sign up.</p>
+    <p>This program is written aiming to fill the gap of plasmid drawing tools. This program is javascript-based and it can be run in a browser without Internet connection. No installation is needed and you may just treat it as a web page on your local computer. The program have been carefully debugged in order to deliver as many feature as possible while keeping bugs minimium.</p>
+    <h2>Instruction </h2>
+    <p>Flexi Plasmid Draw is available in two versions, Basic and Deluxe. The Basic version allows the generation of a plasmid map quickly with few options. This version can run in both Internet Explorer and Firefox browsers. A drawback of this program is that it gives SVG code with no preview function. The Deluxe version on the other hand has a preview function allowing you to view the image represents by the SVG codes. However, the Deluxe version cannot run in Internet Explorer. The Deluxe version also allows a much finer degree of control over the appearance of the plasmid map.</p>
+    <p>Both versions gives SVG code as output. Though you can view the SVG as image directly in Firefox, you'll need another program to save the SVG as *.EMF or *.PNG for use with MS Office applications. You may download the freeware <a href="www.inkscape.org" target="_top">'InkScape'</a> for further editing and exporting the SVG file.</p>
+    <p>Note that SVG is a vector-graphics format. In other words, the image may be magnified without losing quality.</p>
+    <h2>Program entry point</h2>
+    <p><a href="TYMPlasmidDraw.htm">Basic version</a> (For ALL Browsers)</p>
+    <p><a href="FlexiPlasmidDraw v2 Deluxe.xhtml">Deluxe version</a> (For Firefox only)</p>
+    <h2>Donate!</h2>
+    <p>Though this program is released as freeware, please help the poor developer by making a donation. Send an email to me (using your institution's email account) for further information. Thank you.</p>
+    <!-- end #mainContent --></div>
+  <div id="footer">
+<p>Copyright reserved by Mr. <a href="mailto:mavericktse@gmail.com">Tse Yuk Man</a>. Hong Kong. 2008</p>
+  <!-- end #footer --></div>
+<!-- end #container --></div>
+</body>
+</html>

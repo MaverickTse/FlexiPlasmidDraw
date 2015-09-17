@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?> 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800px" height="600px"> 
+<circle cx="400" cy="300" r="200" style="fill:none;stroke:black;stroke-width:2"/>
+<path d="M400,92.5 A207.5,207.5 0 0,1 400,507.5 L400,492.5 A192.5,192.5 0 0,0 400,107.5 z" fill="rgb(255,255,255)" stroke-width="0"/> 
+<path d="M400,507.5 A207.5,207.5 0 0,1 399.99999999999994,92.5 L399.99999999999994,107.5 A192.5,192.5 0 0,0 400,492.5 z" fill="rgb(255,255,255)" stroke-width="0"/> 
+<path d="M597.3442271312445,364.1210263328016 A207.5,207.5 0 0,1 293.12959945616376,477.86221489568834 L290.55440908161347,482.14805139919883 L282.4429495415054,461.8033988749895 L303.43036095436486,460.7188688816461 L300.85517057981457,465.0047053851566 A192.5,192.5 0 0,0 583.078379386817,359.4857714171774 z" fill="rgb(255,0,255)" stroke-width="0"/> 
+<text x="400" y="300" text-anchor="middle" font-size="16" font-family="Arial" font-weight="bold">WhiteCover</text>
+<text x="400" y="321" text-anchor="middle" font-size="16" font-family="Arial" font-weight="bold">1000bp</text>
+<text x="628.5" y="300" text-anchor="start" font-size="14" font-family="Arial" font-weight="bold" font-style="normal">white cover (right)</text>
+<text x="171.5" y="300.00000000000006" text-anchor="end" font-size="14" font-family="Arial" font-weight="bold" font-style="normal">white cover (left)</text>
+<text x="470.6103832146755" y="517.3164139734426" text-anchor="start" font-size="14" font-family="Arial" font-weight="bold" font-style="normal">only arrow is visible</text>
+</svg>

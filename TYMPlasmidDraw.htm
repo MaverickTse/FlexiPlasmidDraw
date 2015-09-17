@@ -1,0 +1,501 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>TYM's Plasmid Map Generator</title>
+<script type="text/javascript">
+function escapeHTML(text) {
+  var replacements = {"<": "&lt;", ">": "&gt;",
+                      "&": "&amp;", "\"": "&quot;"};
+  return text.replace(/[<>&"]/g, function(character) {
+    return replacements[character];
+  });
+}
+
+
+
+function ShowPlasmidName(Cw, Ch, S, TSize, SizeOn)
+{
+var Ox=Cw/2;
+var Oy=Ch/2;
+var Cmd="";
+var PName=escapeHTML(document.Flist.PName.value);
+
+//Draw plasmid name
+Cmd+='<text x="'+Ox+'" y="'+Oy+'" text-anchor="middle" font-size="'+(TSize+2)+'" font-family="Arial" font-weight="bold">'+PName+"</text>\n";
+if (SizeOn)
+  {
+    Cmd+='<text x="'+Ox+'" y="'+(Oy+TSize*1.5)+'" text-anchor="middle" font-size="'+(TSize+2)+'" font-family="Arial" font-weight="bold">'+S+"bp</text>\n";
+	}
+return (Cmd);
+}
+//
+function ShowFeatureLabel(Cw, Ch, S, R, Wa, TSize, Fi, Fe, FName, ItalicFlag)
+{
+var Ox=Cw/2;
+var Oy=Ch/2;
+var Ro=R+Wa/2+TSize*1.3;
+var Theata=(Fe+Fi)*Math.PI/S;
+var Tx=Ox+Ro*Math.sin(Theata);
+var Ty=Oy-Ro*Math.cos(Theata);
+var Cmd="";
+
+Cmd+='<text x="'+Tx+'" y="'+Ty+'" text-anchor="';
+if (Theata>0 && Theata<Math.PI) 
+{Cmd+='start"';}
+else if (Theata>Math.PI && Theata<Math.PI*2) {Cmd+='end"';}
+else {Cmd+='middle"';}
+
+Cmd+=' font-size="'+TSize+'" font-family="Arial" font-weight="bold" ';
+if (ItalicFlag){ Cmd+='font-style="italic">';}
+else
+{Cmd+='font-style="normal">';}
+
+Cmd+=escapeHTML(FName)+"</text>\n";
+return (Cmd);
+
+}
+
+function DrawFeature(Cw, Ch, S, R, Aw, AngleOfArrow, Wa, Fi, Fe, IsArrow,RedPcent,GreenPcent,BluePcent)
+//Cw,h: Canvas width and height; S: plasmid size; R: plasmid radius;
+//Aw: length of arrow wing; AngleOfArrow: Size of Arrow head in degree;
+//Wa: Width of feature
+//Fi: starting bp of feature; Fe: Ending bp of feature
+//IsArrow: 1=draw arrow, 0=draw box
+{
+var RedCode=Math.round(RedPcent/100*255);
+var GreenCode=Math.round(GreenPcent/100*255);
+var BlueCode=Math.round(BluePcent/100*255);
+//Calc. center of canvas
+var Cx=Cw/2;
+var Cy=Ch/2;
+//Degree to Radian conversion factor
+var D2R=Math.PI/180;
+//Angle of Arrow in radian
+var AOA=AngleOfArrow*D2R;
+//Outer Radius
+var Ro=R+Wa/2;
+//Inner radius
+var Ri=R-Wa/2;
+//Direction: sense=0, antisense=1
+var sense=0;
+if (Fe<Fi) sense=1;
+//sweep: <=half: 0, >half: 1
+var sweep=0;
+if (Math.abs(Fe-Fi)/S>0.5) sweep=1;
+var FeatureText="";
+  function DrawArrow()
+  {
+    var Cmd="";
+	var p1x=0; var p1y=0;
+	var p2x=0; var p2y=0;
+	var p3x=0; var p3y=0;
+	var p4x; var p4y;
+	var p5x; var p5y;
+	var p6x; var p6y;
+	var p7x; var p7y;
+	//arrow direction modifier (1=clockwise, -1=anticlockwise)
+	var ArrowMod=1;
+	if (sense) {ArrowMod=-1;};
+	//ABC
+	p1x=Cx+Ro*Math.sin(Fi/S*2*(Math.PI)); p1y=Cy-Ro*Math.cos(Fi/S*(Math.PI)*2);
+	p2x=Cx+Ro*Math.sin(Fe/S*2*Math.PI-AOA*ArrowMod); p2y=Cy-Ro*Math.cos(Fe/S*2*Math.PI-AOA*ArrowMod);
+	p3x=Cx+(Ro+Aw)*Math.sin(Fe/S*2*Math.PI-AOA*ArrowMod); p3y=Cy-(Ro+Aw)*Math.cos(Fe/S*2*Math.PI-AOA*ArrowMod);
+	//tip (D)
+	p4x=Cx+R*Math.sin(Fe/S*2*Math.PI); p4y=Cy-R*Math.cos(Fe/S*2*Math.PI);
+	//EFG
+	p5x=Cx+(Ri-Aw)*Math.sin(Fe/S*2*Math.PI-AOA*ArrowMod); p5y=Cy-(Ri-Aw)*Math.cos(Fe/S*2*Math.PI-AOA*ArrowMod);
+	p6x=Cx+Ri*Math.sin(Fe/S*2*Math.PI-AOA*ArrowMod); p6y=Cy-Ri*Math.cos(Fe/S*2*Math.PI-AOA*ArrowMod);
+	p7x=Cx+Ri*Math.sin(Fi/S*2*Math.PI); p7y=Cy-Ri*Math.cos(Fi/S*2*Math.PI);
+	//output command
+	Cmd+='<path d="M'+p1x+","+p1y+" A"+Ro+","+Ro+" 0 ";
+	
+	if (sweep) {Cmd+="1,";} else {Cmd+="0,";};
+	if (sense) {Cmd+="0 ";} else {Cmd+="1 ";};
+	Cmd+=p2x+","+p2y+" L"+p3x+","+p3y+" L"+p4x+","+p4y+" L"+p5x+","+p5y+" L"+p6x+","+p6y;
+	Cmd+=" A"+Ri+","+Ri+" 0 ";
+	if (sweep) {Cmd+="1,";} else {Cmd+="0,";};
+	if (sense) {Cmd+="1 ";} else {Cmd+="0 ";};
+	Cmd+=p7x+","+p7y;
+	Cmd+=' z" '+'fill="rgb('+RedCode+","+GreenCode+","+BlueCode+')"'+' stroke-width="0"/> \n';
+	
+	return (Cmd);
+
+  }
+  function DrawBox()
+     {
+	   var p1x; var p1y;
+	   var p2x; var p2y;
+	   var p3x; var p3y;
+	   var p4x; var p4y;
+	   var Cmd="";
+	   p1x=Cx+Ro*Math.sin(Fi/S*Math.PI*2); p1y=Cy-Ro*Math.cos(Fi/S*Math.PI*2);
+	   p2x=Cx+Ro*Math.sin(Fe/S*2*Math.PI); p2y=Cy-Ro*Math.cos(Fe/S*2*Math.PI);
+	   p3x=Cx+Ri*Math.sin(Fe/S*2*Math.PI); p3y=Cy-Ri*Math.cos(Fe/S*2*Math.PI);
+	   p4x=Cx+Ri*Math.sin(Fi/S*2*Math.PI); p4y=Cy-Ri*Math.cos(Fi/S*2*Math.PI);
+	   Cmd+='<path d="M'+p1x+","+p1y+" A"+Ro+","+Ro+" 0 ";
+	   if (sweep) {Cmd+="1,";} else {Cmd+="0,";};
+   	   if (sense) {Cmd+="0 ";} else {Cmd+="1 ";};
+	   Cmd+=p2x+","+p2y;
+	   Cmd+=" L"+p3x+","+p3y;
+	   Cmd+=" A"+Ri+","+Ri+" 0 "; 
+	   if (sweep) {Cmd+="1,";} else {Cmd+="0,";};
+	   if (sense) {Cmd+="1 ";} else {Cmd+="0 ";};
+	   Cmd+=p4x+","+p4y;
+	   Cmd+=' z" '+'fill="rgb('+RedCode+","+GreenCode+","+BlueCode+')"'+' stroke-width="0"/> \n';
+	   return (Cmd);
+     }
+if (IsArrow) {FeatureText+=DrawArrow();} else {FeatureText+=DrawBox();}
+return (FeatureText);
+}
+
+function SVGOutput(IsAppend)
+{
+var Cw=parseInt(document.Flist.CanvasWidth.value);
+var Ch=parseInt(document.Flist.CanvasHeight.value);
+var Ox=parseFloat(document.Flist.CanvasWidth.value)/2;
+var Oy=parseFloat(document.Flist.CanvasHeight.value)/2;
+var Radius=parseFloat(document.Flist.R.value);
+var pSize=parseInt(document.Flist.S.value);
+var WingSize=parseInt(document.Flist.Ws.value);
+var AAngle=parseInt(document.Flist.AngArrow.value);
+var FeatureWidth=parseInt(document.Flist.Aw.value);
+var TSize=parseInt(document.Flist.TextSize.value);
+var StrokeWidth=parseInt(document.Flist.BThick.value);
+var outText=document.SVGOutText.TheCode.value;
+//Data checking 1
+if (pSize<=0||Cw<=0||Ch<=0||Radius<=0||WingSize<0||AAngle<0||FeatureWidth<=0||TSize<=0) {alert("Negative values and zeros not acceptable");}
+else if ((2*Radius+FeatureWidth+2*WingSize)>=Cw||(2*Radius+FeatureWidth+2*WingSize)>=Ch) {alert("Radius too large or Canvas size too small!");}
+else
+{
+//Data check 1 passed, proceed to loop
+if (!IsAppend) {
+outText='<?xml version="1.0" standalone="no"?> \n<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n';
+
+outText+='<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="'+Cw+'px" height="'+Ch+'px"> \n';}
+else
+{ if (outText.length>=6) {outText=outText.substring(0,(outText.length-6)); outText+="\n";}}
+
+if (document.Flist.ShowBackBone.checked) 
+{outText+='<circle cx="'+Ox+'" cy="'+Oy+'" r="'+Radius+'" style="fill:none;stroke:black;stroke-width:'+StrokeWidth+'"/>\n';}
+
+ for (var i=0; i<15; i++)
+   {
+   
+   if (document.Flist.visible[i].checked)
+     {
+	 //Error checking
+	 if (isNaN(parseInt(document.Flist.FS[i].value))||isNaN(parseInt(document.Flist.FE[i].value))||isNaN(parseInt(document.Flist.pRed[i].value))||isNaN(parseInt(document.Flist.pGreen[i].value))||isNaN(parseInt(document.Flist.pBlue[i].value))) {alert("Non-numerical values detected for feature "+(i+1)+"!"); continue;}
+	 if (parseInt(document.Flist.FS[i].value)<0 ||parseInt(document.Flist.FE[i].value)<0) {alert("Feature "+(i+1)+"'s co-ordinates cannot be negative values!"); continue;}
+	 if (parseInt(document.Flist.FS[i].value)>pSize ||parseInt(document.Flist.FE[i].value)>pSize) {alert("Feature "+(i+1)+"'s co-ordinates larger than plasmid size!"); continue;}
+	 if (parseInt(document.Flist.pRed[i].value)<0 ||parseInt(document.Flist.pRed[i].value)>100 ||parseInt(document.Flist.pGreen[i].value)<0 || parseInt(document.Flist.pGreen[i].value)>100 || parseInt(document.Flist.pBlue[i].value)<0 || parseInt(document.Flist.pBlue[i].value)>100) {alert("Color codes of feature "+(i+1)+" must be integer from 0 to 100!"); continue;} 
+	 //checking completed    
+	   if (document.Flist.ArrowOn[i].checked)
+	     {
+		   outText+=DrawFeature(Cw, Ch, pSize, Radius, WingSize, AAngle, FeatureWidth, parseInt(document.Flist.FS[i].value), parseInt(document.Flist.FE[i].value), 1,parseInt(document.Flist.pRed[i].value),parseInt(document.Flist.pGreen[i].value),parseInt(document.Flist.pBlue[i].value));
+		 }
+		 else
+		 {
+		   outText+=DrawFeature(Cw, Ch, pSize, Radius, WingSize, AAngle, FeatureWidth, parseInt(document.Flist.FS[i].value), parseInt(document.Flist.FE[i].value), 0,parseInt(document.Flist.pRed[i].value),parseInt(document.Flist.pGreen[i].value),parseInt(document.Flist.pBlue[i].value));
+		 }
+	 }
+   }
+//Display label text routine
+if (document.Flist.ShowText.checked)
+{
+  outText+=ShowPlasmidName(Cw, Ch, pSize, TSize, document.Flist.ShowPlasmidSize.checked);
+  for (var j=0; j<15; j++)
+  {
+    if (document.Flist.visible[j].checked) {outText+=ShowFeatureLabel(Cw, Ch, pSize, Radius, FeatureWidth, TSize, parseInt(document.Flist.FS[j].value), parseInt(document.Flist.FE[j].value), document.Flist.FName[j].value,document.Flist.IsItalic[j].checked);}
+  }
+}
+//
+outText+="</svg>";
+document.SVGOutText.TheCode.value=outText;
+}
+
+}
+
+</script>
+</head>
+
+<body>
+<h1>Tse YM's Flexi Plasmid Draw <em>Basic</em></h1>
+<br>
+Copyright reserved by Maverick <a href="mailto:mavericktse@gmail.com">Tse Yuk Man</a>, 2008<br>
+version 1.8 release<br>
+<p>
+<b>Instruction</b><br>
+<ol>
+<li>Enter the name(optional) and size of a plasmid (any positive integer, required field) in the first two fields</li>
+<li>Enter the starting co-ordinate of your plasmid feature (in bp)</li>
+<li>Enter the ending co-ordinate of the feature. If this value is <strong>less than the starting co-ordinate</strong>, the <strong>arrow will be drawn anti-clockwise</strong>.Note that feature cannot span across the top most point of the circle. The illusion of a feature spanning across the top of circle can be done by creating 2 features (Feature 1: x--&gt;plasmid size; Feature 2: 0 --&gt;y)</li>
+<li>Add all the features required (up to 15). The the features <strong>can overlap</strong> each other without problem.</li>
+<li>Tick the 'visibility' checkboxes on the left to show only the features that you want.</li>
+<li>Click &quot;Generate SVG Code&quot; button to get your plasmid map as SVG code in the text box at the bottom.</li>
+<li>Copy and save the SVG code in a text file with the extension .svg</li>
+<li>View the plasmid by opening the svg file with <strong>Firefox</strong> or <strong>Opera</strong> browser. The image can be edited visually with <a href="http://www.inkscape.org">Inkscape</a> and save as PNG or WMF files for use with other software. If you are REALLY lazy or you cannot run Inkscape, you can view the image in Firefox and hit <b>PrintScreen</b> and edit the captured bitmap.</li>
+</ol>
+<br>
+<b>Other Options</b>
+<ul>
+<li>Canvas Size: determines the maximum size of the image. Default is 800x600 pixels.</li>
+<li>Radius: determines the radius of the circular plasmid to be drawn. Default is 200px.</li>
+<li>Feature Width: set the &quot;thickness&quot; of the arrow or box for your plasmid features. Default is 15px.</li>
+<li>Arrow(checkbox): tick the box to give a feature an arrow head. Untick it to draw a box.</li>
+<li>Arrow angle: set the length of the arrow head if arrow is to be drawn. Default is 5 degree.</li>
+<li>Wing size: determines how wide the arrow heads are. Default is 5px.</li>
+<li>Text size: set the text sizes in pixel. Plasmid name and size are 2px larger than the feature labels.</li>
+<li>Show text(checkbox): If ticked, plasmid name, size and feature labels will be displayed. Untick to remove all labels.</li>
+<li>Name:(textbox) and Italic(checkbox): type the feature name in the textbox. If the label needs to be italic, tick the italic checkbox.</li>
+<li>Color: Three fields for entering the percentage of Red, Green and Blue. The colors are mixed to give a feature's fill color. They are percentage and accept values of 0-100 only. Default color is black (Red=0, Green=0, Blue=0). White is R=100,G=100,B=100.</li>
+</ul>
+<b>Color Reference</b><br>
+<a href="Rainbow ColorWheel.png">Rainbow Color Wheel and RGB percentage values</a><br>
+<a href="Red-Yellow wheel.png">Red-Yellow Spectrum</a><br>
+<a href="Yellow-Green Spectrum.png">Yellow-Green Spectrum</a><br>
+<a href="Green-Blue Spectrum.png">Green-Blue Spectrum</a><br>
+<a href="Blue-Red Spectrum.png">Blue-Red Spectrum</a><br>
+
+
+<b>Hint:</b> You can draw a truncated circle or arrow by making a box-shaped feature white, and cover the feature/backbone at the bottom. Note that features that are drawn later can cover the features drawn earlier. e.g. Feature 5 can cover Feature 3 but not the reverse.
+To see what this program is capable of, see <a href="Example.png">Example 1</a>, <a href="Example2.png">Example 2</a> and <a href="Example3.png">Example 3</a>.<br>
+<br>
+</p>
+<form name="Flist">
+<table>
+<th>Required Input</th><th align="right"><div align="right">Optional Settings</div></th>
+<tr><td>Plasmid size:<input type="text" size="10" value="" name="S">bp</td>
+<td align="right"><div align="right">Plasmid name: 
+  <input type="text" size="15" value="" name="PName">
+</div></td>
+</tr>
+<tr>
+<td></td>
+<td align="right"><div align="right">Canvas Width(px):
+  <input type="text" size="10" value="800" name="CanvasWidth">
+</div></td>
+<td>Canvas Height(px):<input type="text" size="10" value="600" name="CanvasHeight"></td>
+</tr>
+<tr><td></td><td align="right"><div align="right">Radius: 
+  <input type="text" size="10" value="200" name="R">
+</div></td></tr>
+<tr><td></td><td align="right"><div align="right">Feature width: 
+  <input type="text" size="10" value="15" name="Aw">
+</div></td></tr>
+<tr><td></td><td align="right"><div align="right">Arrow angle (degree):
+  <input type="text" size="10" value="5" name="AngArrow">
+</div></td></tr>
+<tr><td></td><td align="right"><div align="right">Wing size (px):
+  <input type="text" size="10" value="5" name="Ws">
+</div></td></tr>
+<tr><td></td><td align="right"><div align="right">Text size(px): 
+  <input type="text" size="10" value="14" name="TextSize">
+</div></td>
+<td>Show text:<input type="checkbox" name="ShowText" checked></td>
+<td>Show plasmid size:<input type="checkbox" name="ShowPlasmidSize" checked></td>
+<td>Show backbone:<input type="checkbox" name="ShowBackBone" checked></td>
+</tr>
+<tr>
+<td></td><td><div align="right">Backbone Thinkness:
+  <input type="text" name="BThick" size="10" value="2">
+</div></td>
+</tr>
+</table>
+<hr>
+<table>
+<caption><b>Feature List:</b></caption>
+<tr>
+<th>Visible?</th><th align="center">Name:</th>
+<th align="center"><i>Italic?</i></th>
+<th align="center">Start:</th>
+<th align="center">End:</th>
+<th align="center">Arrow?</th><th align="center">%Red</th>
+<th align="center">%Green</th>
+<th align="center">%Blue</th>
+</tr>
+<tr>
+<td>01<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>02<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>03<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>04<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>05<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>06<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>07<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>08<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>09<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>10<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>11<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>12<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>13<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>14<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+<tr>
+<td>15<input type="checkbox" name="visible" ></td>
+<td align="center"><input type="text" name="FName" size="15" value=""> </td>
+<td align="center"><input type="checkbox" name="IsItalic"></td>
+<td align="center"><input type="text" size="8" value="" name="FS"></td>
+<td align="center"><input type="text" size="8" value="" name="FE"></td>
+<td align="center"><input type="checkbox" name="ArrowOn" checked></td>
+<td align="center"><input type="text" name="pRed" size="3" value="0"></td>
+<td align="center"><input type="text" name="pGreen" size="3" value="0"></td>
+<td align="center"><input type="text" name="pBlue" size="3" value="0"></td>
+</tr>
+</table>
+<br>
+<br>
+<input type="button" value="Generate SVG Code" onClick="SVGOutput(0)">
+<input type="button" value="Append SVG Code" onClick="SVGOutput(1)">
+<input type="reset" value="Reset">
+</form>
+<br>
+<form name="SVGOutText">
+Save the following code as a .SVG file:<br>
+<textarea name="TheCode" cols="100" rows="20" readonly>
+
+</textarea><br>
+<input type="reset" value="Clear SVG Code">
+
+</form>
+</body>
+
+</html>

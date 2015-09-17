@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Flexi plasmid draw Deluxe for Firefox</title>
+
+<script type="text/javascript" src="plasmid.js">
+
+
+</script>
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 18px;
+	font-weight: bold;
+}
+.style2 {color: #FF0000}
+.style3 {color: #00FF00}
+.style4 {color: #0000FF}
+.style5 {
+	font-size: large;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body>
+<h1 align="left">Flexi Plasmid Draw <i>Deluxe</i></h1>
+<p><br  />
+  Copyright reserved by Mr. <a href="mailto:mavericktse@gmail.com">Tse Yuk Man</a>, 2008. Hong Kong.</p>
+<p align="right"><span class="style5"><a href="helpd.htm">Help!</a></span><br  />
+</p>
+<form id="fomPlasmidSetting">
+<table id="tblPlasmidSetting" align="center">
+<caption style="font-weight:bold">General Plasmid Settings</caption>
+<tr style="text-align:center"><td>Name:</td><td>Show?</td><td style="color:red">Size:</td><td>Show?</td><td>Backbone Radius:</td><td>Width</td><td>Color</td><td>Show?</td></tr>
+<tr>
+<td><input type="text" id="txtPlasmidName" value="" size="8" /></td>
+<td><input type="checkbox" id="bolShowPlasmidName" checked="checked" /></td>
+<td><input type="text" id="txtPlasmidSize" value="" size="5" /></td>
+<td><input type="checkbox" id="bolShowPlasmidSize" checked="checked" /></td>
+<td><input type="text" id="txtRadius" value="200" size="14" /></td>
+<td><input type="text" id="txtBackBoneWidth" value="2" size="5" /></td>
+<td><select id="optBackBoneColor" size="1">
+		<option  selected="selected" value="black" style="background-color:black">Black</option>
+        <option value="white" style="background-color:white">White</option>
+        <option value="red" style="background-color:red">Red</option>
+        <option value="orange" style="background-color:orange">Orange</option>
+        <option value="yellow" style="background-color:yellow">Yellow</option>
+        <option value="green" style="background-color:green">Green</option>
+        <option value="blue" style="background-color:blue">Blue</option>
+        <option value="purple" style="background-color:purple">Purple</option>
+    </select></td>
+<td><input type="checkbox" id="bolShowBackBone" checked="checked" /></td>
+<td><input type="reset" value="Reset"/></td>
+</tr>
+</table>
+</form>
+<br  />
+<form id="fomFeatureSetting">
+<table id="tblFeatureSetting" align="center">
+<caption style="font-weight:bold">General Feature Settings</caption>
+<tr align="center">
+<td>Feature Width</td><td>Stroke Width</td><td>Stroke Color</td><td>Arrow head length</td><td>Arrow head width</td>
+</tr>
+<tr>
+<td><input type="text" id="txtFeatureWidth" value="20" size="12" /></td>
+<td><input type="text" id="txtFeatureStrokeWidth" value="0" size="12" /></td>
+<td>R%<input type="text" id="txtStrokeRed" value="0" size="3" />
+	G%<input type="text" id="txtStrokeGreen" value="0" size="3" />
+    B%<input type="text" id="txtStrokeBlue" value="0" size="3" /></td>
+<td><input type="text" id="txtArrowHeadLength" value="5" size="12" />&deg;</td>
+<td><input type="text" id="txtArrowHeadWidth" value="5" size="12" />px</td>
+<td><input type="reset" value="Reset"/></td>
+</tr>
+</table>
+</form>
+
+<br  />
+<form id="fomTextSetting">
+<table id="tblTextSetting" align="center">
+<caption style="font-weight:bold">
+Text Settings
+</caption>
+<tr style="text-align:center">
+<td>Show Text</td><td>Font family</td><td>Size</td><td>Color</td><td>Bold?</td><td>Text Location</td>
+</tr>
+<tr>
+<td><input type="checkbox" id="bolShowText" checked="checked" /></td>
+<td><select id="optFontFamily" size="1">
+		<option value="0" selected="selected" style="font-family:Arial, Helvetica, sans-serif">Arial</option>
+        <option value="1" style="font-family:'Times New Roman', Times, serif">Times</option>
+        <option value="2" style="font-family:'Courier New', Courier, monospace">Courier</option>
+    </select>
+</td>
+<td><input type="text" value="12" id="txtFontSize" size="5" /></td>
+<td><select id="optFontColor" size="1">
+		<option  selected="selected" value="black" style="color:black">Black</option>
+        <option value="white" style="color:white">White</option>
+        <option value="red" style="color:red">Red</option>
+        <option value="orange" style="color:orange">Orange</option>
+        <option value="yellow" style="color:yellow">Yellow</option>
+        <option value="green" style="color:green">Green</option>
+        <option value="blue" style="color:blue">Blue</option>
+        <option value="purple" style="color:purple">Purple</option>
+    </select></td>
+<td><input type="checkbox" id="bolTextBold" checked="checked" /></td>
+<td><select id="optTextLocation" size="1">
+		<option value="0" selected="selected">Outside circle</option>
+        <option value="1">Inside circle</option>
+        <option value="2">Curve inside feature</option>
+    </select>
+</td>
+<td><input type="reset" value="Reset"/></td>
+</tr>
+</table>
+</form>
+
+<br  />
+<form id="fomCanvasSetting">
+<table id="tblCanvasSetting" align="center">
+<caption style="font-weight:bold">Canvas Size Setting</caption>
+<tr><td>Width(px)</td><td>Height(px)</td></tr>
+<tr><td><input type="text" id="txtCanvasWidth" value="800" size="10"/></td>
+	<td><input type="text" id="txtCanvasHeight" value="600" size="10"/></td>
+    <td><input type="reset" value="Reset"/></td>
+</tr>
+</table>
+</form>
+<p class="style1">Color References</p>
+<p><a href="Rainbow ColorWheel.svg">Rainbow Color Wheel and RGB percentage values</a><br />
+  <a href="Red-Yellow wheel.svg">Red-Yellow Spectrum</a><br />
+  <a href="Yellow-Green Spectrum.svg">Yellow-Green Spectrum</a><br />
+  <a href="Green-Blue Spectrum.svg">Green-Blue Spectrum</a><br />
+  <a href="Blue-Red Spectrum.svg">Blue-Red Spectrum</a></p>
+<p><a href="example deluxe.svg">Deluxe Example</a><br  />
+</p>
+<hr />
+<form id="fomFeatureList">
+<table align="center" bgcolor="#CCCCCC">
+<caption style="font-weight:bold">Feature List:</caption>
+
+<tr align="center">
+<td>Visible?</td><td>Name:</td>
+<td><i>Italic?</i></td>
+<td>Start:</td>
+<td>End:</td>
+<td>Arrow?</td>
+<td style="color:red">%Red</td>
+<td style="color:green">%Green</td>
+<td style="color:blue">%Blue</td>
+</tr>
+
+<tr align="center">
+<td>01<input type="checkbox" id="visible0" /></td>
+<td align="center"><input type="text" id="txtFeatureName0" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic0"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart0"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd0"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn0" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed0" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen0" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue0" size="3" value="0"/></td>
+</tr>
+
+<tr align="center">
+<td>02<input type="checkbox" id="visible1" /></td>
+<td align="center"><input type="text" id="txtFeatureName1" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic1"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart1"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd1"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn1" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed1" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen1" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue1" size="3" value="0"/></td>
+</tr>
+
+<tr align="center">
+<td>03<input type="checkbox" id="visible2" /></td>
+<td align="center"><input type="text" id="txtFeatureName2" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic2"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart2"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd2"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn2" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed2" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen2" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue2" size="3" value="0"/></td>
+</tr>
+
+
+<tr align="center">
+<td>04<input type="checkbox" id="visible3" /></td>
+<td align="center"><input type="text" id="txtFeatureName3" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic3"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart3"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd3"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn3" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed3" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen3" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue3" size="3" value="0"/></td>
+</tr>
+
+<tr align="center">
+<td>05<input type="checkbox" id="visible4" /></td>
+<td align="center"><input type="text" id="txtFeatureName4" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic4"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart4"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd4"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn4" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed4" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen4" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue4" size="3" value="0"/></td>
+</tr>
+
+<tr align="center">
+<td>06<input type="checkbox" id="visible5" /></td>
+<td align="center"><input type="text" id="txtFeatureName5" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic5"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart5"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd5"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn5" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed5" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen5" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue5" size="3" value="0"/></td>
+</tr>
+
+<tr align="center">
+<td>07<input type="checkbox" id="visible6" /></td>
+<td align="center"><input type="text" id="txtFeatureName6" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic6"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart6"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd6"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn6" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed6" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen6" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue6" size="3" value="0"/></td>
+</tr>
+
+<tr align="center">
+<td>08<input type="checkbox" id="visible7" /></td>
+<td align="center"><input type="text" id="txtFeatureName7" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic7"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart7"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd7"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn7" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed7" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen7" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue7" size="3" value="0"/></td>
+</tr>
+
+<tr align="center">
+<td>09<input type="checkbox" id="visible8" /></td>
+<td align="center"><input type="text" id="txtFeatureName8" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic8"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart8"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd8"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn8" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed8" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen8" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue8" size="3" value="0"/></td>
+</tr>
+
+<tr align="center">
+<td>10<input type="checkbox" id="visible9" /></td>
+<td align="center"><input type="text" id="txtFeatureName9" size="15" value=""/> </td>
+<td align="center"><input type="checkbox" id="bolItalic9"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureStart9"/></td>
+<td align="center"><input type="text" size="8" value="" id="txtFeatureEnd9"/></td>
+<td align="center"><input type="checkbox" id="bolArrowOn9" checked="checked"/></td>
+<td align="center"><input type="text" id="txtFeatureRed9" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureGreen9" size="3" value="0"/></td>
+<td align="center"><input type="text" id="txtFeatureBlue9" size="3" value="0"/></td>
+</tr>
+<tr align="left">
+<td><input type="button" value="Generate Code"  onclick="main(0)"/></td>
+<td><input type="button" value="Append Features" onclick="main(1)"/></td>
+<td><input type="reset" value="Reset Feature List"/></td>
+</tr>
+</table>
+</form>
+<hr  />
+Preview Area:<br />
+<div id="PreviewArea">
+<svg id="pic" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="600px" style="display:inline">
+<circle x="5" y="5" r="2" fill="black"></circle>
+</svg>
+</div>
+<hr  />
+Copy the code below and save as a text file with .svg extension
+<form>
+<textarea id="SVGCode" cols="100" rows="15" readonly="readonly">
+
+</textarea>
+</form>
+</body>
+</html>

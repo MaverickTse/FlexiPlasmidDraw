@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" standalone="no"?> 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800px" height="600px"> 
+<circle cx="400" cy="300" r="200" style="fill:none;stroke:black;stroke-width:2"/>
+<path d="M400,507.5 A207.5,207.5 0 0,1 208.99524290861865,381.0767091615243 L204.39271864135645,383.03036480397066 L209.7886967409693,361.8033988749895 L227.40533997766744,373.2620865917388 L222.80281571040524,375.2157422341852 A192.5,192.5 0 0,0 400,492.5 z" fill="rgb(0,0,0)" stroke-width="0"/> 
+<path d="M400,92.5 A207.5,207.5 0 0,1 536.1322485155303,456.60223789622523 L539.4125436604828,460.37578579733906 L517.5570504584946,461.80339887498945 L523.0110679357201,441.50804629176974 L526.2913630806727,445.28159419288363 A192.5,192.5 0 0,0 400,107.5 z" fill="rgb(0,0,255)" stroke-width="0"/> 
+<text x="400" y="300" text-anchor="middle" font-size="16" font-family="Arial" font-weight="bold">測試質粒</text>
+<text x="267.33686855758884" y="482.59513563042566" text-anchor="end" font-size="14" font-family="Arial" font-weight="bold" font-style="normal">&lt;b&gt;HTML tags would not work&lt;/b&gt;</text>
+<text x="614.6534557278162" y="230.25486436957436" text-anchor="start" font-size="14" font-family="Arial" font-weight="bold" font-style="italic">deh4p</text>
+
+<path d="M400,88.5 A211.5,211.5 0 0,1 597.4522602041582,224.20517867116897 L599.3194210571526,223.48844277207837 L599.7218684219822,235.10643118126103 L592.7843580716722,225.99701841889546 L594.6515189246666,225.28028251980487 A208.5,208.5 0 0,0 400,91.5 z" fill="rgb(0,128,255)" stroke-width="0"/> 
+<text x="531.19366831168" y="119.42740685551175" text-anchor="start" font-size="9" font-family="Arial" font-weight="bold" font-style="italic">4p'1</text>
+
+<path d="M400,78.5 A221.5,221.5 0 0,1 520.6375462558285,114.23446920008857 L521.7268243258586,112.55712806419771 L529.3127555043441,122.01626123751157 L517.9143510807534,118.42782203981568 L519.0036291507835,116.75048090392485 A218.5,218.5 0 0,0 400,81.5 z" fill="rgb(0,191,255)" stroke-width="0"/> 
+<text x="400" y="300" text-anchor="middle" font-size="11" font-family="Arial" font-weight="bold"></text>
+<text x="472.0627630882377" y="78.21362039997021" text-anchor="start" font-size="9" font-family="Arial" font-weight="bold" font-style="italic">4p'2</text>
+</svg>

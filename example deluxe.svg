@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" standalone="no"?> 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="600px"> 
+<circle cx="400" cy="300" r="200" style="fill:none;stroke:black;stroke-width:2"/>
+<path d="M400,90 A210,210 0 0,1 508.1579957311114,119.99486685255641 L510.7331861056616,115.70903034904586 L517.5570504584946,138.19660112501052 L495.28204385836,141.42404937010923 L497.8572342329103,137.13821286659865 A190,190 0 0,0 400,110 z" fill="rgb(255,255,255)" stroke-width="2" stroke="rgb(0,0,0)"/> 
+<text x="400" y="300" text-anchor="middle" font-size="16px" font-family="Arial"  font-weight="bold" fill="black">Example Deluxe</text>
+<text x="453.8925638189908" y="134.13574355812523" text-anchor="end" font-size="12px" font-family="Arial" font-weight="bold" fill="black"  font-style="normal">Inside</text>
+<circle cx="400" cy="300" r="200" style="fill:none;stroke:black;stroke-width:2"/>
+<path d="M523.4349029814193,130.10643118126103 A210,210 0 0,1 593.3060192250125,217.94646301725254 L597.9085434922747,215.99280737480615 L590.2113032590307,238.19660112501052 L570.2933978887015,227.71474122948436 L574.8959221559637,225.761085587038 A190,190 0 0,0 511.6791979355699,146.28677106875998 z" fill="rgb(255,255,255)" stroke-width="2" stroke="rgb(0,0,0)"/> 
+<text x="400" y="300" text-anchor="middle" font-size="16px" font-family="Arial"  font-weight="bold" fill="black">Example Deluxe</text>
+<text x="582.5142339309881" y="167.39564708281807" text-anchor="start" font-size="12px" font-family="Arial" font-weight="bold" fill="black"  font-style="normal">Outside</text>
+undefined<path d="M599.7218684219822,235.10643118126103 A210,210 0 0,1 602.0258110330781,242.68009354136166 L582.7852576013563,248.1391322517082 A190,190 0 0,0 580.7007380960791,241.28677106875998 z" fill="rgb(0,0,0)" stroke-width="0"  stroke="rgb(0,0,0)"/> 
+<text x="623.296592833831" y="232.0721586622813" text-anchor="start" font-size="18px" font-family="Times" font-weight="bold" fill="blue"  font-style="normal">Times 18</text>
+undefined<path d="M602.7301441549876,245.22328367912164 A210,210 0 0,1 603.4024638370125,247.77512369538044 L584.0308006144398,252.74892143867754 A190,190 0 0,0 583.422511378322,250.44011380491958 z" fill="rgb(0,0,0)" stroke-width="0"  stroke="rgb(0,0,0)"/> 
+<text x="625.6981472437524" y="240.5365126254986" text-anchor="start" font-size="18px" font-family="Courier" font-weight="bold" fill="red"  font-style="normal">Courier 18</text>
+<circle cx="400" cy="300" r="150" style="fill:none;stroke:purple;stroke-width:6"/>
+<circle cx="400" cy="300" r="150" style="fill:none;stroke:yellow;stroke-width:2"/>
+<path d="M617.5766260364045,258.495038819262 A221.5,221.5 0 0,1 605.0803345354138,383.69173428029046 L607.8579462898438,384.82525664074586 L599.0619515425243,393.671444144316 L599.5251110265539,381.42468955937966 L602.3027227809839,382.55821191983506 A218.5,218.5 0 0,0 614.6297642842185,259.0571827630191 z" fill="rgb(0,0,255)" stroke-width="0" stroke="rgb(0,0,0)"/> 
+<text x="637.8098939050803" y="330.0423760853637" text-anchor="start" font-size="14px" font-family="Arial" font-weight="bold" fill="blue"  font-style="normal">Concentric Arc</text>
+<path d="M564.2261100225826,377.2789414190607 A181.5,181.5 0 0,0 579.8207330455671,275.36762360317374 L582.7929765669813,274.96047688587083 L576.811705131164,266.27136337456955 L573.8762460027383,276.18191703777956 L576.8484895241527,275.77477032047665 A178.5,178.5 0 0,1 561.5116288651844,376.0016035443655 z" fill="rgb(255,0,0)" stroke-width="0" stroke="rgb(0,0,0)"/> 
+<text x="559.0359866207108" y="320.090917340358" text-anchor="end" font-size="14px" font-family="Arial" font-weight="bold" fill="red"  font-style="normal">Arc 2</text>
+<path d="M606.2803226530245,260.6499239369978 A210,210 0 0,1 537.7723960880065,458.4890118467821 L541.0526912329591,462.262559747896 L517.5570504584946,461.80339887498945 L521.3709203632438,439.62127234121283 L524.6512155081964,443.39482024232666 A190,190 0 0,0 586.6345776384509,264.3975502287123 z" fill="rgb(255,255,255)" stroke-width="2" stroke="rgb(0,0,0)"/> 
+<defs>
+ <path id="OBJ24555" d="M592.3333480515608,328.2708901040833A194.4,194.4 0 0,1 559.5577327392891,411.052644827116" />
+</defs>
+<text text-anchor="start" font-size="14px" font-family="Arial" font-weight="normal" fill="red" font-style="normal">
+<textPath xlink:href="#OBJ24555">Curve along</textPath>
+</text>
+</svg>
