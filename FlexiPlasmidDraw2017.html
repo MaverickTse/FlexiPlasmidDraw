@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Flexi plasmid draw 2017</title>
+
+<script type="text/javascript" src="plasmid.js">
+
+</script>
+<style type="text/css">
+body{
+    background-color: #555555;
+}
+h1{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%);
+    color:gold;
+    padding: 10px;
+}
+
+p{
+    color: antiquewhite;
+}
+
+a{
+    background:  linear-gradient(to bottom, #cfe7fa 0%,#6393c1 100%);
+    padding: 3px;
+}
+table{
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    padding: 2pt;
+        
+}
+
+thead{
+    word-wrap: break-word;
+    color: #33ccff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-style: normal;
+}
+
+th{
+    font-weight: normal;
+}
+
+th:hover{
+    color: greenyellow;
+}
+
+caption{
+    background: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: antiquewhite;
+    text-align: center;
+    padding: 3pt;
+}
+
+td{
+    color:#33ccff;
+}
+
+input:focus{
+    background-color: yellow;
+}
+
+input[type=text]{
+    width: 50%;
+}
+
+.red{
+    color: red;
+}
+
+.green{
+    color: greenyellow;
+}
+
+.blue{
+    color: blue;
+}
+#txtStrokeRed{
+    color: red;
+}
+#txtStrokeGreen{
+    color: green;
+}
+#txtStrokeBlue{
+    color: blue;
+}
+
+#fomFeatureList table{
+    border-style: none;
+}
+#fomFeatureList table tr:nth-child(even){
+    background-color: #7d7e7d;
+}
+#fomFeatureList table tr td:first-child{
+    color:antiquewhite;
+}
+#PreviewArea{
+    background-color: #fff9e6;
+}
+</style>
+</head>
+
+<body>
+<h1>Flexi Plasmid Draw 2017</h1>
+<p>
+  Copyright reserved by Mr. <a href="mailto:mavericktse@gmail.com">Tse Yuk Man</a>, 2008-2017. Hong Kong.</p>
+<p class="style5"><a href="helpd.htm">Help!</a></p>
+<form id="fomPlasmidSetting">
+<table id="tblPlasmidSetting">
+<caption>General Plasmid Settings</caption>
+<thead><th>Name:</th><th>Show?</th><th>Size:</th><th>Show?</th><th>Backbone Radius:</th><th>Width</th><th>Color</th><th>Show?</th></thead>
+<tr>
+<td><input type="text" id="txtPlasmidName" value="" /></td>
+<td><input type="checkbox" id="bolShowPlasmidName" checked="checked" /></td>
+<td><input type="text" id="txtPlasmidSize" value="" /></td>
+<td><input type="checkbox" id="bolShowPlasmidSize" checked="checked" /></td>
+<td><input type="text" id="txtRadius" value="200" /></td>
+<td><input type="text" id="txtBackBoneWidth" value="2"/></td>
+<td><select id="optBackBoneColor">
+		<option  selected="selected" value="black" style="background-color:black">Black</option>
+        <option value="white" style="background-color:white">White</option>
+        <option value="red" style="background-color:red">Red</option>
+        <option value="orange" style="background-color:orange">Orange</option>
+        <option value="yellow" style="background-color:yellow">Yellow</option>
+        <option value="green" style="background-color:green">Green</option>
+        <option value="blue" style="background-color:blue">Blue</option>
+        <option value="purple" style="background-color:purple">Purple</option>
+    </select></td>
+<td><input type="checkbox" id="bolShowBackBone" checked="checked" /></td>
+<td><input type="reset" value="Reset"/></td>
+</tr>
+</table>
+</form>
+
+<form id="fomFeatureSetting">
+<table id="tblFeatureSetting">
+<caption>General Feature Settings</caption>
+<thead>
+<th>Feature Width</th><th>Stroke Width</th><th>Stroke Color</th><th>Arrow head length</th><th>Arrow head width</th>
+</thead>
+<tr>
+<td><input type="text" id="txtFeatureWidth" value="20" /></td>
+<td><input type="text" id="txtFeatureStrokeWidth" value="0" /></td>
+<td><div class="red">R%<input type="text" id="txtStrokeRed" value="0" /></div>
+	<div class="green">G%<input type="text" id="txtStrokeGreen" value="0"  /></div>
+    <div class="blue">B%<input type="text" id="txtStrokeBlue" value="0"  /></div></td>
+<td><input type="text" id="txtArrowHeadLength" value="5"  />&deg;</td>
+<td><input type="text" id="txtArrowHeadWidth" value="5"  />px</td>
+<td><input type="reset" value="Reset"/></td>
+</tr>
+</table>
+</form>
+
+<form id="fomTextSetting">
+<table id="tblTextSetting">
+<caption>Text Settings</caption>
+<thead>
+<th>Show Text</th><th>Font family</th><th>Size</th><th>Color</th><th>Bold?</th><th>Text Location</th>
+</thead>
+<tr>
+<td><input type="checkbox" id="bolShowText" checked="checked" /></td>
+<td><select id="optFontFamily" >
+		<option value="0" selected="selected" style="font-family:Arial, Helvetica, sans-serif">Arial</option>
+        <option value="1" style="font-family:'Times New Roman', Times, serif">Times</option>
+        <option value="2" style="font-family:'Courier New', Courier, monospace">Courier</option>
+    </select>
+</td>
+<td><input type="text" value="12" id="txtFontSize"  /></td>
+<td><select id="optFontColor" >
+		<option  selected="selected" value="black" style="color:black">Black</option>
+        <option value="white" style="color:white">White</option>
+        <option value="red" style="color:red">Red</option>
+        <option value="orange" style="color:orange">Orange</option>
+        <option value="yellow" style="color:yellow">Yellow</option>
+        <option value="green" style="color:green">Green</option>
+        <option value="blue" style="color:blue">Blue</option>
+        <option value="purple" style="color:purple">Purple</option>
+    </select></td>
+<td><input type="checkbox" id="bolTextBold" checked="checked" /></td>
+<td><select id="optTextLocation" >
+		<option value="0" selected="selected">Outside circle</option>
+        <option value="1">Inside circle</option>
+        <option value="2">Curve inside feature</option>
+    </select>
+</td>
+<td><input type="reset" value="Reset"/></td>
+</tr>
+</table>
+</form>
+
+<form id="fomCanvasSetting">
+<table id="tblCanvasSetting">
+<caption>Canvas Size Setting</caption>
+<thead><th>Width(px)</th><th>Height(px)</th></thead>
+<tr><td><input type="text" id="txtCanvasWidth" value="800" /></td>
+	<td><input type="text" id="txtCanvasHeight" value="600" /></td>
+    <td><input type="reset" value="Reset"/></td>
+</tr>
+</table>
+</form>
+<p class="style1">Color References</p>
+<ul>
+   <li><a href="Rainbow ColorWheel.svg">Rainbow Color Wheel and RGB percentage values</a></li> 
+   <li><a href="Red-Yellow wheel.svg">Red-Yellow Spectrum</a></li>
+   <li><a href="Yellow-Green Spectrum.svg">Yellow-Green Spectrum</a></li>
+   <li><a href="Green-Blue Spectrum.svg">Green-Blue Spectrum</a></li>
+   <li><a href="Blue-Red Spectrum.svg">Blue-Red Spectrum</a></li>
+   <li><a href="example deluxe.svg">Deluxe Example</a></li>
+</ul>
+
+<hr />
+<form id="fomFeatureList">
+<table>
+<caption>Feature List:</caption>
+
+<thead>
+<th>Visible?</th><th>Name:</th>
+<th><i>Italic?</i></th>
+<th>Start:</th>
+<th>End:</th>
+<th>Arrow?</th>
+<th style="color:red">%Red</th>
+<th style="color:green">%Green</th>
+<th style="color:blue">%Blue</th>
+</thead>
+
+<tr>
+<td>01<input type="checkbox" id="visible0" /></td>
+<td><input type="text" id="txtFeatureName0"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic0"/></td>
+<td><input type="text"  value="" id="txtFeatureStart0"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd0"/></td>
+<td><input type="checkbox" id="bolArrowOn0" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed0"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen0"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue0"  value="0"/></td>
+</tr>
+
+<tr>
+<td>02<input type="checkbox" id="visible1" /></td>
+<td><input type="text" id="txtFeatureName1"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic1"/></td>
+<td><input type="text"  value="" id="txtFeatureStart1"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd1"/></td>
+<td><input type="checkbox" id="bolArrowOn1" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed1"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen1"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue1"  value="0"/></td>
+</tr>
+
+<tr>
+<td>03<input type="checkbox" id="visible2" /></td>
+<td><input type="text" id="txtFeatureName2"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic2"/></td>
+<td><input type="text"  value="" id="txtFeatureStart2"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd2"/></td>
+<td><input type="checkbox" id="bolArrowOn2" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed2"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen2"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue2"  value="0"/></td>
+</tr>
+
+
+<tr>
+<td>04<input type="checkbox" id="visible3" /></td>
+<td><input type="text" id="txtFeatureName3"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic3"/></td>
+<td><input type="text"  value="" id="txtFeatureStart3"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd3"/></td>
+<td><input type="checkbox" id="bolArrowOn3" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed3"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen3"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue3"  value="0"/></td>
+</tr>
+
+<tr>
+<td>05<input type="checkbox" id="visible4" /></td>
+<td><input type="text" id="txtFeatureName4"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic4"/></td>
+<td><input type="text"  value="" id="txtFeatureStart4"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd4"/></td>
+<td><input type="checkbox" id="bolArrowOn4" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed4"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen4"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue4"  value="0"/></td>
+</tr>
+
+<tr>
+<td>06<input type="checkbox" id="visible5" /></td>
+<td><input type="text" id="txtFeatureName5"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic5"/></td>
+<td><input type="text"  value="" id="txtFeatureStart5"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd5"/></td>
+<td><input type="checkbox" id="bolArrowOn5" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed5"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen5"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue5"  value="0"/></td>
+</tr>
+
+<tr>
+<td>07<input type="checkbox" id="visible6" /></td>
+<td><input type="text" id="txtFeatureName6"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic6"/></td>
+<td><input type="text"  value="" id="txtFeatureStart6"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd6"/></td>
+<td><input type="checkbox" id="bolArrowOn6" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed6"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen6"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue6"  value="0"/></td>
+</tr>
+
+<tr>
+<td>08<input type="checkbox" id="visible7" /></td>
+<td><input type="text" id="txtFeatureName7"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic7"/></td>
+<td><input type="text"  value="" id="txtFeatureStart7"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd7"/></td>
+<td><input type="checkbox" id="bolArrowOn7" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed7"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen7"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue7"  value="0"/></td>
+</tr>
+
+<tr>
+<td>09<input type="checkbox" id="visible8" /></td>
+<td><input type="text" id="txtFeatureName8"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic8"/></td>
+<td><input type="text"  value="" id="txtFeatureStart8"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd8"/></td>
+<td><input type="checkbox" id="bolArrowOn8" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed8"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen8"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue8"  value="0"/></td>
+</tr>
+
+<tr>
+<td>10<input type="checkbox" id="visible9" /></td>
+<td><input type="text" id="txtFeatureName9"  value=""/> </td>
+<td><input type="checkbox" id="bolItalic9"/></td>
+<td><input type="text"  value="" id="txtFeatureStart9"/></td>
+<td><input type="text"  value="" id="txtFeatureEnd9"/></td>
+<td><input type="checkbox" id="bolArrowOn9" checked="checked"/></td>
+<td><input type="text" id="txtFeatureRed9"  value="0"/></td>
+<td><input type="text" id="txtFeatureGreen9"  value="0"/></td>
+<td><input type="text" id="txtFeatureBlue9"  value="0"/></td>
+</tr>
+<tr>
+<td><input type="button" value="Generate Code"  onclick="main(0)"/></td>
+<td><input type="button" value="Append Features" onclick="main(1)"/></td>
+<td><input type="reset" value="Reset Feature List"/></td>
+</tr>
+</table>
+</form>
+
+<hr  />
+<p>Preview Area:</p>
+<p id="PreviewArea">
+<svg id="pic" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="600px">
+<circle x="5" y="5" r="2" fill="black"></circle>
+</svg>
+</p>
+
+<hr  />
+<p>Copy the code below and save as a text file with .svg extension</p>
+<form>
+<textarea id="SVGCode" cols="100" rows="15" readonly="readonly">
+
+</textarea>
+</form>
+</body>
+</html>
