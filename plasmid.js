@@ -12,7 +12,26 @@ function getID()
 	var str="OBJ"+tmp;
 	return str;
 }
-
+//Estimate SVG text render length
+function svg_estimate(txt, fontsize, family)
+{
+	var svgns = "http://www.w3.org/2000/svg";
+	var svg = document.createElementNS(svgns, "svg");
+	var gnode = document.createElementNS(svgns, "g");
+	var tnode = document.createElementNS(svgns, "text");
+	var tmsg = document.createTextNode(txt);
+	tnode.setAttribute("font-size", fontsize);
+	tnode.setAttribute("font-family", family);
+	tnode.setAttribute("x", 50);
+	tnode.setAttribute("y", 50);
+	tnode.appendChild(tmsg);
+	gnode.appendChild(tnode);
+	svg.appendChild(gnode);
+	document.body.appendChild(svg);
+	var len_est = tnode.getComputedTextLength();
+	svg.remove();
+	return len_est;
+}
 //Replace some special characters in user's input text to avoid breaking the SVG code
 function escapeHTML(text) {
   var replacements = {"<": "&lt;", ">": "&gt;",
@@ -461,8 +480,9 @@ Cmd[1].appendChild(document.createTextNode(SArray[n].name));
 //**************************************************************//
 if (SArray[0].txtloc==2)
 {
+var txtrenderlen = svg_estimate(SArray[n].name, TSize, fontfamily[SArray[0].txtfamily]);	
 var midAng=((SArray[n].start+SArray[n].end)*Math.PI)/SArray[0].plasmidsize;
-var Da=1.2*0.5*SArray[n].name.length*Math.asin(0.5*TSize/SArray[0].plasmidradius);
+var Da=0.5*txtrenderlen/SArray[0].plasmidradius;
 var SAng=midAng-Da;
 var EAng=midAng+Da;
 	//alert("midAng="+midAng+"\nDa="+Da+"\nSAng="+SAng+"\nEAng="+EAng);
