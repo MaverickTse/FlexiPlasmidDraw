@@ -524,7 +524,8 @@ else
 {Cmd[0]+=' font-style="normal">';Cmd[1].setAttribute("font-style","normal");}
 
 Cmd[0]+='\n<textPath xlink:href="#'+objid+'">'+SArray[n].name+'</textPath>\n</text>\n';
-txtpathobj.setAttribute("xlink:href",objid);
+//txtpathobj.setAttribute("xlink:href",objid);
+txtpathobj.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#"+objid);
 txtpathobj.appendChild(document.createTextNode(SArray[n].name));
 Cmd[1].appendChild(txtpathobj);
 
