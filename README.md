@@ -1,5 +1,5 @@
 # FlexiPlasmidDraw
-__Client-side standalone__ Plasmid illustration drawing(SVG) for biotech use.
+__Client-side standalone__ Plasmid illustration drawing(SVG) for biotech/educational use.
 
 Created in 2008, before the HTML5 or whatever JS framework era.
 
@@ -13,7 +13,7 @@ All mordern browsers as of 2015 should be able to render SVG so you can forget a
 
 MIT license. Donation welcome (paypal at: mavericktse@ gmail .com ).
 
-Originally published on my blog at [http://mavericktse.mooo.com/]
+Originally published on my blog at [http://mavericktse.mooo.com/] → now [https://www.mavtse.com]
 
 ## Difference from other tools
 * Vector NTI/pDraw and other payware: This is free and better suitable for simple illustration purpose
