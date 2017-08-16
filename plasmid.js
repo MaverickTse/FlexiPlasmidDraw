@@ -371,7 +371,7 @@ var PName=SArray[0].plasmidname;
 var fontw="normal";
 if (SArray[0].txtbold) {fontw="bold";}
 var fontfamily=[];
-fontfamily[0]="Arial";fontfamily[1]="Times";fontfamily[2]="Courier";
+fontfamily[0]="Arial";fontfamily[1]="Times";fontfamily[2]="Courier";fontfamily[3]="Yu Gothic";
 var fontfill=SArray[0].txtcolor;
 var Cmd=[];
 Cmd[1]=newSVG("text");
@@ -398,7 +398,7 @@ function DrawPlasmidSize(SArray)
 	var fontw="normal";
 	if (SArray[0].txtbold) {fontw="bold";}
 	var fontfamily=[];
-	fontfamily[0]="Arial";fontfamily[1]="Times";fontfamily[2]="Courier";
+	fontfamily[0]="Arial";fontfamily[1]="Times";fontfamily[2]="Courier";fontfamily[3]="Yu Gothic";
 	var fontfill=SArray[0].txtcolor;
 	var Cmd=[];
     Cmd[0]='<text x="'+Ox+'" y="'+(Oy+TSize*1.5)+'" text-anchor="middle" font-size="'+(TSize+2)+'px" font-family="'+fontfamily[SArray[0].txtfamily]+'"  font-weight="'+fontw+'" fill="'+fontfill+'">'+S+"bp</text>\n";
@@ -432,7 +432,7 @@ var Tyi=Oy-Ri*Math.cos(Theata);
 var fontw="normal";
 if (SArray[0].txtbold) {fontw="bold";}
 var fontfamily=[];
-fontfamily[0]="Arial";fontfamily[1]="Times";fontfamily[2]="Courier";fontfamily[3]="Yu Gothic"
+fontfamily[0]="Arial";fontfamily[1]="Times";fontfamily[2]="Courier";fontfamily[3]="Yu Gothic";
 var fontfill=SArray[0].txtcolor;
 
 
@@ -527,7 +527,7 @@ var txtpathobj=newSVG("textPath");
 var Para="";
 var objid=getID();
 Cmd[1]=newSVG("text");
-Cmd[0]='<defs>\n <path id="'+objid+'" d="M'+Xi+","+Yi+"A"+baseRadius+","+baseRadius+" 0 ";
+Cmd[0]='<defs>\n <path id="'+objid+'" d="M'+Xi+","+Yi+" A "+baseRadius+","+baseRadius+" 0 ";
 
 Para="M"+Xi+","+Yi+" A "+baseRadius+","+baseRadius+" 0 ";
 	   if (sweep) {Cmd[0]+="1,";Para+="1,";} else {Cmd[0]+="0,";Para+="0,";};
