@@ -432,7 +432,7 @@ var Tyi=Oy-Ri*Math.cos(Theata);
 var fontw="normal";
 if (SArray[0].txtbold) {fontw="bold";}
 var fontfamily=[];
-fontfamily[0]="Arial";fontfamily[1]="Times";fontfamily[2]="Courier";
+fontfamily[0]="Arial";fontfamily[1]="Times";fontfamily[2]="Courier";fontfamily[3]="Yu Gothic"
 var fontfill=SArray[0].txtcolor;
 
 
