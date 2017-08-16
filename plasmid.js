@@ -13,7 +13,7 @@ function getID()
 	return str;
 }
 //Estimate SVG text render length
-function svg_estimate(txt, fontsize, family)
+function svg_estimate(txt, fontsize, family, weight, style)
 {
 	var svgns = "http://www.w3.org/2000/svg";
 	var svg = document.createElementNS(svgns, "svg");
@@ -22,6 +22,8 @@ function svg_estimate(txt, fontsize, family)
 	var tmsg = document.createTextNode(txt);
 	tnode.setAttribute("font-size", fontsize);
 	tnode.setAttribute("font-family", family);
+	tnode.setAttribute("font-weight", weight);
+	tnode.setAttribute("font-style", style);
 	tnode.setAttribute("x", 50);
 	tnode.setAttribute("y", 50);
 	tnode.appendChild(tmsg);
@@ -480,7 +482,12 @@ Cmd[1].appendChild(document.createTextNode(SArray[n].name));
 //**************************************************************//
 if (SArray[0].txtloc==2)
 {
-var txtrenderlen = svg_estimate(SArray[n].name, TSize, fontfamily[SArray[0].txtfamily]);	
+var fontstyle="normal";
+	if (SArray[n].italic)
+	{
+		fontstyle="italic";
+	}
+var txtrenderlen = svg_estimate(SArray[n].name, TSize, fontfamily[SArray[0].txtfamily], fontw, fontstyle);	
 var midAng=((SArray[n].start+SArray[n].end)*Math.PI)/SArray[0].plasmidsize;
 var Da=0.5*txtrenderlen/SArray[0].plasmidradius;
 var SAng=midAng-Da;
@@ -493,7 +500,8 @@ var Xe=Ox+SArray[0].plasmidradius*Math.sin(EAng);
 var Ye=Oy-SArray[0].plasmidradius*Math.cos(EAng);
 */
 //use inner radius
-var vOffset=(TSize*0.8)/2;
+//var vOffset=(TSize*0.8)/2;
+var vOffset=0;
 var baseRadius=SArray[0].plasmidradius-vOffset;
 var Xi=Ox+(baseRadius)*Math.sin(SAng);
 var Yi=Oy-(baseRadius)*Math.cos(SAng);
@@ -531,12 +539,13 @@ Para="M"+Xi+","+Yi+" A "+baseRadius+","+baseRadius+" 0 ";
 	   pathobj.setAttribute("stroke","0");
 	   defsobj.appendChild(pathobj);
 	   Cmd[2]=defsobj;
-Cmd[0]+='<text text-anchor="start" font-size="'+TSize+'px" font-family="'+fontfamily[SArray[0].txtfamily]+'" font-weight="'+fontw+'" fill="'+fontfill+'"';
+Cmd[0]+='<text dominant-baseline="central" text-anchor="start" font-size="'+TSize+'px" font-family="'+fontfamily[SArray[0].txtfamily]+'" font-weight="'+fontw+'" fill="'+fontfill+'"';
 Cmd[1].setAttribute("font-size",(TSize+"px"));
 Cmd[1].setAttribute("font-family",fontfamily[SArray[0].txtfamily]);
 Cmd[1].setAttribute("font-weight",fontw);
 Cmd[1].setAttribute("fill",fontfill);
 Cmd[1].setAttribute("text-anchor","start");
+Cmd[1].setAttribute("dominant-baseline","central");
 
 
 if (SArray[n].italic){ Cmd[0]+=' font-style="italic">';Cmd[1].setAttribute("font-style","italic");}
