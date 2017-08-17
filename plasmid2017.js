@@ -47,19 +47,13 @@ function escapeHTML(text) {
 function isNum(txtValue) {
 	return !isNaN(txtValue);
 }
-//Read the value of a text field without further processing
-function readtxtField(ObjID) {
-	var theObj = document.getElementById(ObjID);
-	return theObj.value;
-}
+
 //read the value of an input and convert to number if necessary
 function readField(ObjID) {
 	var theObj = document.getElementById(ObjID);
 	var tmp;
 	if (theObj.type == "checkbox") {
 		tmp = theObj.checked;
-	} else if (isNum(theObj.value)) {
-		tmp = parseInt(theObj.value);
 	} else {
 		tmp = theObj.value;
 	}
@@ -86,32 +80,30 @@ function rangecheck(x, i, f) {
 function readUserInput() {
 	var settings = {};
 	//Plasmid Section
-	settings.plasmidname = readtxtField("txtPlasmidName");
+	settings.plasmidname = readField("txtPlasmidName");
 	settings.plasmidnameon = readField("bolShowPlasmidName");
-	settings.plasmidsize = readField("txtPlasmidSize");
+	settings.plasmidsize = parseInt(readField("txtPlasmidSize"));
 	settings.plasmidsizeon = readField("bolShowPlasmidSize");
-	settings.plasmidradius = readField("txtRadius");
-	settings.bbwidth = readField("txtBackBoneWidth");
-	settings.bbcolor = readField("optBackBoneColor");
+	settings.plasmidradius = parseInt(readField("txtRadius"));
+	settings.bbwidth = parseInt(readField("txtBackBoneWidth"));
+	settings.bbcolor = readField("colBackbone");
 	settings.bbon = readField("bolShowBackBone");
 	//Feature Section (General)
-	settings.fwidth = readField("txtFeatureWidth");
-	settings.fstrokewidth = readField("txtFeatureStrokeWidth");
-	settings.fstrokered = readField("txtStrokeRed");
-	settings.fstrokegreen = readField("txtStrokeGreen");
-	settings.fstrokeblue = readField("txtStrokeBlue");
-	settings.farrowlength = readField("txtArrowHeadLength");
-	settings.farrowwidth = readField("txtArrowHeadWidth");
+	settings.fwidth = parseInt(readField("txtFeatureWidth"));
+	settings.fstrokewidth = parseInt(readField("txtFeatureStrokeWidth"));
+	settings.fstrokecolor = readField("colFeatureStroke");
+	settings.farrowlength = parseInt(readField("txtArrowHeadLength"));
+	settings.farrowwidth = parseInt(readField("txtArrowHeadWidth"));
 	//Text section
 	settings.txton = readField("bolShowText");
 	settings.txtfamily = readField("optFontFamily");
-	settings.txtsize = readField("txtFontSize");
-	settings.txtcolor = readField("optFontColor");
+	settings.txtsize = parseInt(readField("txtFontSize"));
+	settings.txtcolor = readField("colFont");
 	settings.txtbold = readField("bolTextBold");
 	settings.txtloc = readField("optTextLocation");
 	//Canvas section
-	settings.cw = readField("txtCanvasWidth");
-	settings.ch = readField("txtCanvasHeight");
+	settings.cw = parseInt(readField("txtCanvasWidth"));
+	settings.ch = parseInt(readField("txtCanvasHeight"));
 	settings.error = 0;
 	settings.errmsg = "";
 	//Calculated properties
@@ -125,171 +117,41 @@ function readUserInput() {
 }
 //read a feature and return as object
 function readFList(Findex) {
-	var f0 = "visible" + Findex;
-	var f1 = "txtFeatureName" + Findex;
-	var f2 = "bolItalic" + Findex;
-	var f3 = "txtFeatureStart" + Findex;
-	var f4 = "txtFeatureEnd" + Findex;
-	var f5 = "bolArrowOn" + Findex;
-	var f6 = "txtFeatureRed" + Findex;
-	var f7 = "txtFeatureGreen" + Findex;
-	var f8 = "txtFeatureBlue" + Findex;
+	var padded_idx = ("00"+Findex).slice(-2);
+	var f0 = "visible" + padded_idx;
+	var f1 = "txtFeatureName" + padded_idx;
+	var f2 = "bolItalic" + padded_idx;
+	var f3 = "txtFeatureStart" + padded_idx;
+	var f4 = "txtFeatureEnd" + padded_idx;
+	var f5 = "bolArrowOn" + padded_idx;
+	var f6 = "colFeature" + padded_idx;
+
 	var FObj = {};
 	FObj.visible = readField(f0);
-	FObj.name = readtxtField(f1);
-	FObj.name = escapeHTML(FObj.name);
+	//FObj.name = readField(f1);
+	FObj.name = escapeHTML(readField(f1));
+	//FObj.name = escapeHTML(FObj.name);
 	FObj.italic = readField(f2);
-	FObj.start = readField(f3);
-	FObj.end = readField(f4);
+	FObj.start = parseInt(readField(f3));
+	FObj.end = parseInt(readField(f4));
 	FObj.arrowon = readField(f5);
-	FObj.red = readField(f6);
-	FObj.green = readField(f7);
-	FObj.blue = readField(f8);
+	FObj.color = readField(f6);
 	FObj.error = 0;
 	FObj.errmsg = "";
 	return FObj;
 }
-//Validate general settings
-function validsettings(SObj) {
-	SObj.error = 0;
-	//Plasmid Section
-	if (isNum(SObj.plasmidsize)) {
-		if (SObj.plasmidsize <= 0) {
-			SObj.errmsg += "Plasmid size must be a positive number!\n";
-			SObj.error = 1;
-		}
-	} else {
-		SObj.errmsg += "Plasmid size must be a number!\n";
-		SObj.error = 1;
-	}
 
-	if (isNum(SObj.plasmidradius)) {
-		if (SObj.plasmidradius <= 0) {
-			SObj.errmsg += "Plasmid radius must be a positive number!\n";
-			SObj.error = 1;
-		}
-	} else {
-		SObj.errmsg += "Plasmid radius must be a number!\n";
-		SObj.error = 1;
-	}
 
-	if (isNum(SObj.bbwidth)) {
-		if (SObj.bbwidth < 0) {
-			SObj.errmsg += "Backbone width must be a non-negative value!";
-			SObj.error = 1;
-		}
-	} else {
-		SObj.errmsg += "Backbone width must be a number!\n";
-		SObj.error = 1;
-	}
-
-	SObj.plasmidname = escapeHTML(SObj.plasmidname); //avoid introduction of xml,html or svg tags
-	//Feature Section (general)
-	if (isNum(SObj.fstrokered) && isNum(SObj.fstrokegreen) && isNum(SObj.fstrokeblue)) {
-		var redobj = rangecheck(SObj.fstrokered, 0, 100);
-		var greenobj = rangecheck(SObj.fstrokegreen, 0, 100);
-		var blueobj = rangecheck(SObj.fstrokeblue, 0, 100);
-		if (redobj.out) {
-			SObj.errmsg += "Red color value out-of-range!Must be 0...100\n";
-			SObj.error = 1;
-		}
-		if (greenobj.out) {
-			SObj.errmsg += "Green color value out-of-range!Must be 0...100\n";
-			SObj.error = 1;
-		}
-		if (blueobj.out) {
-			SObj.errmsg += "Blue color value out-of-range!Must be 0...100\n";
-			SObj.error = 1;
-		}
-	} else {
-		SObj.errmsg += "Color codes must be numbers\n";
-		SObj.error = 1;
-	}
-	//Text Section
-	if (isNum(SObj.txtsize)) {
-		if (SObj.txtsize <= 0) {
-			SObj.errmsg += "Text size must a positive number!\n";
-			SObj.error = 1;
-		}
-	} else {
-		SObj.errmsg += "Text size must be a number!\n";
-		SObj.error = 1;
-	}
-	//Canvas Section
-	if (isNum(SObj.cw) && isNum(SObj.ch)) {
-		if (SObj.cw <= 0 || SObj.ch <= 0) {
-			SObj.errmsg += "Canvas dimensions must be positive numbers!\n";
-			SObj.error = 1;
-		}
-		var maxR = SObj.plasmidradius * 2 + SObj.fwidth * 2 + SObj.farrowwidth * 2;
-		if (maxR >= SObj.cw || maxR >= SObj.ch) {
-			SObj.errmsg += "Canvas too small or plasmid radius too large!\n";
-			SObj.error = 1;
-		}
-	} else {
-		SObj.errmsg += "Canvas dimensions must be numbers!\n";
-	}
-	return SObj;
-}
-
-function validFeature(Obj, pSize) {
-	Obj.error = 0;
-	if (Obj.visible) {
-
-		if (isNum(Obj.start) && isNum(Obj.end)) {
-			var startobj = rangecheck(Obj.start, 0, pSize);
-			var endobj = rangecheck(Obj.end, 0, pSize);
-			if (startobj.out || endobj.out) {
-				Obj.errmsg += "Feature co-ordinates out-of-range\n";
-				Obj.error = 1;
-			}
-		} else {
-			Obj.errmsg += "Feature co-ordinates must be numbers\n";
-			Obj.error = 1;
-		}
-
-		if (isNum(Obj.red) && isNum(Obj.green) && isNum(Obj.blue)) {
-			var redobj = rangecheck(Obj.red, 0, 100);
-			var blueobj = rangecheck(Obj.blue, 0, 100);
-			var greenobj = rangecheck(Obj.green, 0, 100);
-			if (redobj.out || blueobj.out || greenobj.out) {
-				Obj.errmsg += "Feature color code out-of-range\n";
-				Obj.error = 1;
-			}
-		} else {
-			Obj.errmsg += "Color code must be numbers\n";
-			Obj.error = 1;
-		}
-	}
-	return Obj;
-}
 //Clean up all data and return error message or data object array
 function Cleanup(FeatureNo) {
-	var errlog = "";
 	var ObjGlobal = readUserInput();
-	var ObjGlobal = validsettings(ObjGlobal);
 	var FArray = [];
 	FArray[0] = ObjGlobal;
-	var hasError = false;
-	if (ObjGlobal.error) {
-		errlog += "General settings error:\n" + ObjGlobal.errmsg;
-		hasError = true;
-	}
+	
 	for (var i = 1; i <= FeatureNo; i++) {
-		FArray[i] = validFeature(readFList(i - 1), ObjGlobal.plasmidsize);
-		if (FArray[i].error) {
-			errlog += "Feature " + i + " error: " + FArray[i].errmsg;
-			hasError = true;
-		}
+		FArray[i] = readFList(i - 1);
 	}
-
-	if (hasError) {
-		alert("The following errors are detected:\n" + errlog);
-		return false;
-	} else {
-		return FArray;
-	}
-
+	return FArray;
 }
 //Draw plasmid backbone base on general settings
 function DrawCircle(SArray) {
@@ -315,12 +177,14 @@ function DrawBox(SArray, n) {
 	var p4x;
 	var p4y;
 	var S = SArray[0].plasmidsize;
-	var fillred = Math.round(SArray[n].red / 100 * 255);
-	var fillgreen = Math.round(SArray[n].green / 100 * 255);
-	var fillblue = Math.round(SArray[n].blue / 100 * 255);
-	var stred = Math.round(SArray[0].fstrokered / 100 * 255);
-	var stgreen = Math.round(SArray[0].fstrokegreen / 100 * 255);
-	var stblue = Math.round(SArray[0].fstrokeblue / 100 * 255);
+	var fillcolor = SArray[n].color;
+	//var fillred = Math.round(SArray[n].red / 100 * 255);
+	//var fillgreen = Math.round(SArray[n].green / 100 * 255);
+	//var fillblue = Math.round(SArray[n].blue / 100 * 255);
+	var stcolor = SArray[0].fstrokecolor;
+	//var stred = Math.round(SArray[0].fstrokered / 100 * 255);
+	//var stgreen = Math.round(SArray[0].fstrokegreen / 100 * 255);
+	//var stblue = Math.round(SArray[0].fstrokeblue / 100 * 255);
 	var Cx = SArray[0].ox;
 	var Cy = SArray[0].oy;
 
@@ -381,11 +245,11 @@ function DrawBox(SArray, n) {
 	Cmd[0] += p4x + "," + p4y;
 	Para += p4x + "," + p4y + " z";
 	Cmd[1].setAttribute("d", Para);
-	Cmd[0] += ' z" ' + 'fill="rgb(' + fillred + "," + fillgreen + "," + fillblue + ')"' + ' stroke-width="' + SArray[0].fstrokewidth + '"  stroke="rgb(' + stred + "," + stgreen + "," + stblue + ')"/> \n';
-	Para = "rgb(" + fillred + "," + fillgreen + "," + fillblue + ")";
+	Cmd[0] += ' z" ' + 'fill=' + fillcolor + ' stroke-width="' + SArray[0].fstrokewidth + '"  stroke="' + stcolor + '"/> \n';
+	Para = fillcolor;
 	Cmd[1].setAttribute("fill", Para);
 	Cmd[1].setAttribute("stroke-width", SArray[0].fstrokewidth);
-	Para = "rgb(" + stred + "," + stgreen + "," + stblue + ")";
+	Para = stcolor;
 	Cmd[1].setAttribute("stroke", Para);
 	return (Cmd);
 }
@@ -419,12 +283,14 @@ function DrawArrow(SArray, n) {
 	var R = SArray[0].plasmidradius;
 	var S = SArray[0].plasmidsize;
 	var AOA = SArray[0].farrowlength / 180 * Math.PI;
-	var fillred = Math.round(SArray[n].red / 100 * 255);
-	var fillgreen = Math.round(SArray[n].green / 100 * 255);
-	var fillblue = Math.round(SArray[n].blue / 100 * 255);
-	var stred = Math.round(SArray[0].fstrokered / 100 * 255);
-	var stgreen = Math.round(SArray[0].fstrokegreen / 100 * 255);
-	var stblue = Math.round(SArray[0].fstrokeblue / 100 * 255);
+	var fillcolor = SArray[n].color;
+	//var fillred = Math.round(SArray[n].red / 100 * 255);
+	//var fillgreen = Math.round(SArray[n].green / 100 * 255);
+	//var fillblue = Math.round(SArray[n].blue / 100 * 255);
+	var stcolor = SArray[0].color;
+	//var stred = Math.round(SArray[0].fstrokered / 100 * 255);
+	//var stgreen = Math.round(SArray[0].fstrokegreen / 100 * 255);
+	//var stblue = Math.round(SArray[0].fstrokeblue / 100 * 255);
 	//Direction: sense=0, antisense=1
 	var sense = 0;
 	if (Fe < Fi) sense = 1;
@@ -493,10 +359,10 @@ function DrawArrow(SArray, n) {
 	Cmd[0] += p7x + "," + p7y + ' z"';
 	Para += p7x + "," + p7y + " z";
 	Cmd[1].setAttribute("d", Para);
-	Cmd[0] += ' fill="rgb(' + fillred + "," + fillgreen + "," + fillblue + ')"' + ' stroke-width="' + SArray[0].fstrokewidth + '" stroke="rgb(' + stred + "," + stgreen + "," + stblue + ')"/> \n';
-	Para = "rgb(" + fillred + "," + fillgreen + "," + fillblue + ")";
+	Cmd[0] += ' fill="' + fillcolor + '"' + ' stroke-width="' + SArray[0].fstrokewidth + '" stroke="' + stcolor + '"/> \n';
+	Para = fillcolor;
 	Cmd[1].setAttribute("fill", Para);
-	Para = "rgb(" + stred + "," + stgreen + "," + stblue + ")";
+	Para = stcolor;
 	Cmd[1].setAttribute("stroke", Para);
 	Cmd[1].setAttribute("stroke-width", SArray[0].fstrokewidth);
 	return (Cmd);
@@ -805,16 +671,87 @@ function SavePNG() {
 
 }
 
+function addFeature()
+{
+	var ftable = document.getElementById("tblFeatureTable").getElementsByTagName("tbody")[0];
+	var current_feature_count = ftable.rows.length;
+	var new_row = ftable.insertRow(-1);
+	var cell1 = new_row.insertCell(0);
+	var cell2 = new_row.insertCell(1);
+	var cell3 = new_row.insertCell(2);
+	var cell4 = new_row.insertCell(3);
+	var cell5 = new_row.insertCell(4);
+	var cell6 = new_row.insertCell(5);
+	var cell7 = new_row.insertCell(6);
+	
+	var new_count = current_feature_count + 1;
+	var padid_old = ("00"+current_feature_count).slice(-2);
+	var paddedid = ("00"+new_count).slice(-2);
+	var idtext = document.createTextNode(paddedid);
+	var cb = document.createElement("input");
+	cb.type = "checkbox";
+	cb.id = "visible"+ padid_old;
+	cell1.appendChild(idtext);
+	cell1.appendChild(cb);
+
+	var txtname = document.createElement("input");
+	txtname.type = "text";
+	txtname.id = "txtFeatureName"+padid_old;
+	txtname.value = "";
+	txtname.placeholder = "(Feature label)";
+	cell2.appendChild(txtname);
+
+	var cbstyle = document.createElement("input");
+	cbstyle.type = "checkbox";
+	cbstyle.id = "bolItalic"+padid_old;
+	cell3.appendChild(cbstyle);
+
+	var fstart = document.createElement("input");
+	var fmax = document.getElementById("txtPlasmidSize").value;
+	fstart.type = "number";
+	fstart.min = 0;
+	fstart.max = fmax;
+	fstart.id = "txtFeatureStart"+padid_old;
+	cell4.appendChild(fstart);
+
+	var fend = document.createElement("input");
+	fend.type = "number";
+	fend.min = 0;
+	fend.max = fmax;
+	fend.id = "txtFeatureEnd"+padid_old;
+	cell5.appendChild(fend);
+
+	var cbarrow = document.createElement("input");
+	cbarrow.type = "checkbox";
+	cbarrow.checked = true;
+	cbarrow.id = "bolArrowOn"+padid_old;
+	cell6.appendChild(cbarrow);
+
+	var colfill = document.createElement("input");
+	colfill.type = "color";
+	colfill.value = "#00CCFF";
+	colfill.id = "colFeature"+padid_old;
+	cell7.appendChild(colfill);
+}
+
+function delFeature()
+{
+	var ftable = document.getElementById("tblFeatureTable").getElementsByTagName("tbody")[0];
+	var current_feature_count = ftable.rows.length;
+	if(current_feature_count > 0)
+		{
+			ftable.deleteRow(-1);
+		}
+}
+
 //Main Drawing function, mode 0 is draw new graph, mode 1 is append
 function main(mode) {
 	var code = "";
 	var Result;
 	var svgout = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-
-
-
-	var Inobj = Cleanup(10);
-	var svgheader = '<?xml version="1.0" standalone="no"?> \n<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + Inobj[0].cw + 'px" height="' + Inobj[0].ch + 'px"> \n';
+	var feature_count = document.getElementById("tblFeatureTable").getElementsByTagName("tbody")[0].rows.length;
+	var Inobj = Cleanup(feature_count);
+	var svgheader = '<?xml version="1.0" standalone="no"?> \n<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 2.0//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + Inobj[0].cw + 'px" height="' + Inobj[0].ch + 'px"> \n';
 	if (Inobj != false) {
 		var pretext = document.getElementById("SVGCode");
 		var picobj = document.getElementById("pic");
