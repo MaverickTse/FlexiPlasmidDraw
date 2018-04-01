@@ -1,4 +1,4 @@
-![Full feature showdown](example%20deluxe.svg)
+![Proper demo](proper_demo.svg)
 
 # FlexiPlasmidDraw
 __Client-side standalone__ Plasmid illustration drawing(SVG) for biotech/educational use.
