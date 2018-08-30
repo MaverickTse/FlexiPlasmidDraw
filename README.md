@@ -11,7 +11,7 @@ SVG file can be edited using WYSIWYG editor Inkscape or Illustrator, or even a p
 
 You can [download everything](https://github.com/MaverickTse/FlexiPlasmidDraw/archive/master.zip) on to your own PC and then just run __index.html__, then select either [2017](https://www.mavtse.com/FlexiPlasmidDraw/FlexiPlasmidDraw2017.html) OR [Basic](https://www.mavtse.com/FlexiPlasmidDraw/TYMPlasmidDraw.htm) OR [Deluxe](https://www.mavtse.com/FlexiPlasmidDraw/FlexiPlasmidDraw%20v2%20Deluxe.xhtml) version to run.
 
-All mordern browsers as of 2015 should be able to render SVG so you can forget about the Basic version actually.
+All modern browsers as of 2015 should be able to render SVG so you can forget about the Basic version actually.
 
 MIT license. Donation welcome (paypal at: mavericktse@ gmail .com ).
 
